@@ -14,12 +14,15 @@ const nextConfig: NextConfig = {
     esmExternals: true,
   },
   images: {
-    domains: ['0-inf.github.io'],
+    domains: ['0-inf.github.io/0-inf-page'],
+  },
+  fonts: {
+    domains: ['0-inf.github.io/0-inf-page'],
   },
   sassOptions: {
     prependData: `
-      $base-path: '${process.env.NEXT_PUBLIC_BASE_PATH || ''}';
-    `,
+    $base-path: '${process.env.NODE_ENV === 'production' ? '/0-inf-page' : ''}';
+  `,
   },
   async headers() {
     return [
