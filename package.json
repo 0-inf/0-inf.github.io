@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@souhaildev/reactemojis": "^1.0.5",
     "next": "15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "sass": "^1.83.0"
+    "sass": "^1.83.0",
+    "use-local-storage": "^3.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
