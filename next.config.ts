@@ -3,50 +3,32 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   /* config options here */
   assetPrefix: process.env.NODE_ENV === 'production' ? 'https://0-inf.github.io/0-inf-page/' : '',
-
+  basePath: process.env.NODE_ENV === 'production' ? '/0-inf-page' : '',
+  trailingSlash: true,
+  reactStrictMode: true,
+  webpack5: true,
+  eslint: {
+    dirs: ['src'],
+  },
+  experimental: {
+    esmExternals: true,
+  },
+  images: {
+    domains: ['0-inf.github.io'],
+  },
   async headers() {
     return [
       {
-        source: '/',
+        source: '/(.*)',
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: 'upgrade-insecure-requests',
+            value: `default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https://0-inf.github.io; script-src 'self' 'unsafe-inline';`,
           },
         ],
       },
     ];
   },
-
-  images: {
-    unoptimized: true,
-  },
-
-  eslint: {
-    dirs: ['src'],
-  },
-
-  reactStrictMode: true,
-  swcMinify: true,
-
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: [
-        {
-          loader: '@svgr/webpack',
-          options: {
-            typescript: true,
-            icon: true,
-          },
-        },
-      ],
-    });
-
-    return config;
-  },
-  output: 'export',
 };
 
 export default nextConfig;
