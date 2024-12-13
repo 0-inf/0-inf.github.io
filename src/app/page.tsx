@@ -3,12 +3,14 @@
 import Image from 'next/image';
 import { useTheme } from './theme';
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export default function Home() {
   const { toggleTheme } = useTheme();
   return (
     <div className="smooth-anime">
       <main className="flex flex-col justify-items-center max-w-4xl mx-auto p-4">
-        <Image aria-hidden src="/globe.svg" alt="Globe icon" width={16} height={16} />
+        <Image aria-hidden src={`${basePath}/globe.svg`} alt="Globe icon" width={16} height={16} />
         <h1 className="text-8xl text-center">Welcome to 0-inf</h1>
         <h4>Dear reader.</h4>a long time ago...
         <p>
