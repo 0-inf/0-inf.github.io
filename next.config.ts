@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['0-inf.github.io'],
   },
+  sassOptions: {
+    prependData: `
+      $base-path: '${process.env.NEXT_PUBLIC_BASE_PATH || ''}';
+    `,
+  },
   async headers() {
     return [
       {
