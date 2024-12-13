@@ -1,8 +1,8 @@
 {
-  "name": "0-inf-page",
+  "name": "0-inf.github.io",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://0-inf.github.io/0-inf-page/",
+  "homepage": "https://0-inf.github.io/",
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
