@@ -2,13 +2,17 @@
   "name": "0-inf-page",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://0-inf.github.io/0-inf-page/",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "npm run build",
+    "deploy": "touch out/.nojekyll && gh-pages -d out --dotfiles"
   },
   "dependencies": {
+    "gh-pages": "^6.2.0",
     "next": "15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
