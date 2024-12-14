@@ -2,11 +2,14 @@ import Link from 'next/link';
 
 export default function IdLink({ id }: { id: string }) {
   return (
-    <Link id={id} href={`/#${id}`} className="mt-2">
-      <h3>
-        <span className="text-[--id-link]">§</span>
+    <div>
+      <div id={id} className="relative -top-16" />
+      <h3 className="mt-2">
+        <Link href={`/#${id}`}>
+          <span className="text-[--id-link]">§</span>
+        </Link>
         {` ${id.charAt(0).toUpperCase()}${id.slice(1)}`}
       </h3>
-    </Link>
+    </div>
   );
 }
