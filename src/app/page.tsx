@@ -1,44 +1,135 @@
 'use client';
 
-import Image from 'next/image';
 import { useTheme } from './theme';
+import IdLink from '@/components/IdLink';
+import EmojiBtn from '@/components/EmojiBtn';
+import Link from 'next/link';
+import { Fragment } from 'react';
+
 import { FaGithub } from 'react-icons/fa';
 import { FaYoutube } from 'react-icons/fa';
-import IdLink from '@/components/IdLink';
+import { FaGlobe } from 'react-icons/fa';
+import { FaSoundcloud } from 'react-icons/fa';
+import { CiLight } from 'react-icons/ci';
+import { CiDark } from 'react-icons/ci';
+import { IoMail } from 'react-icons/io5';
+
+type MemberInfoType = {
+  name: string;
+  github?: string;
+  website?: string;
+  youtube?: string;
+  soundcloud?: string;
+};
+
+const members: MemberInfoType[] = [
+  {
+    name: 'Siwon Yun',
+    github: 'https://www.github.com/ysw421',
+    website: 'https://www.siwonsw.com',
+  },
+  {
+    name: 'Jinjae Park',
+    github: 'https://www.github.com/sleepncaffeine',
+  },
+  {
+    name: 'Chaehwan Seol',
+    github: 'https://www.github.com/seolmango',
+    website: 'https://seolmango.github.io',
+    youtube: 'https://www.youtube.com/channel/UCfnm0ljbPTutMH7DdMXg8iQ',
+  },
+  {
+    name: 'Mossygoldcoin',
+    github: 'https://www.github.com/Mossygoldcoin',
+    youtube: 'https://www.youtube.com/channel/UCRzFMeRA2cFAr22wZi0EuxA',
+  },
+  {
+    name: 'Hraverals',
+    github: 'https://www.github.com/Hraverals',
+    soundcloud: 'https://www.soundcloud.com/hraverals',
+  },
+  {
+    name: 'Seonghyun Kim',
+    github: 'https://www.github.com/FlyingChihwahwa',
+    youtube: 'https://www.youtube.com/@SiONdot-of',
+  },
+];
+
+function GithubBtn({ url }: { url: string }) {
+  return (
+    <EmojiBtn url={url} name="Github">
+      <FaGithub />
+    </EmojiBtn>
+  );
+}
+
+function YoutubeBtn({ url }: { url: string }) {
+  return (
+    <EmojiBtn url={url} name="Youtube">
+      <FaYoutube />
+    </EmojiBtn>
+  );
+}
+
+function SoundcloudBtn({ url }: { url: string }) {
+  return (
+    <EmojiBtn url={url} name="Soundcloud">
+      <FaSoundcloud />
+    </EmojiBtn>
+  );
+}
+
+function WebsiteBtn({ url }: { url: string }) {
+  return (
+    <EmojiBtn url={url} name="Website">
+      <FaGlobe />
+    </EmojiBtn>
+  );
+}
 
 export default function Home() {
-  const { toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   return (
     <>
+      <nav className="flex flex-col justify-items-center w-full max-w-4xl mx-auto sticky top-0 z-50 p-4">
+        <div className="w-full theme-inverse py-2 px-6 rounded-xl flex justify-between items-center">
+          <h4>0-inf</h4>
+          <div className="flex gap-4">
+            <Link href="#member">Member</Link>
+            <Link href="#about">About</Link>
+            <Link href="#project">Project</Link>
+            <Link href="#contact">Contact</Link>
+          </div>
+        </div>
+      </nav>
       <header className="flex flex-col justify-items-center items-center w-full py-40 gap-4">
         <div>
           <h1 className="text-8xl">Welcome to 0-inf</h1>
           <p className="text-end">Since 2020</p>
         </div>
         <div className="flex gap-8">
-          <a href="https://github.com/0-inf" target="_blank" className="flex items-center gap-1">
-            <FaGithub />
-            <span>GitHub</span>
-          </a>
-          <a href="https://www.youtube.com/@zerotoinf" target="_blank" className="flex items-center gap-1">
-            <FaYoutube />
-            <span>YouTube</span>
-          </a>
+          <GithubBtn url="https://www.github.com/zerotoinf" />
+          <YoutubeBtn url="https://www.youtube.com/@zerotoinf" />
         </div>
       </header>
       <main className="flex flex-col justify-items-center max-w-4xl mx-auto p-4">
-        <Image aria-hidden src="/globe.svg" alt="Globe icon" width={16} height={16} />
-        <h4>Dear reader.</h4>a long time ago...
-        <p>사랑하는 한글...</p>
+        <h4>Dear reader,</h4>
+        <p>안녕하때욥! 0-inf이예욥!</p>
         <IdLink id="member" />
         <ul className="list-disc ml-8">
-          <li>Siwon Yun</li>
-          <li>Jinjae Park</li>
-          <li>Chaehwan Seol</li>
-          <li>Mossygoldcoin</li>
-          <li>Hraverals</li>
-          <li>Seonghyun Kim</li>
+          {members.map((member, index) => (
+            <Fragment key={`member-${index}`}>
+              <li>{member.name}</li>
+              <div className="flex gap-8">
+                {member.github && <GithubBtn url={member.github} />}
+                {member.youtube && <YoutubeBtn url={member.youtube} />}
+                {member.soundcloud && <SoundcloudBtn url={member.soundcloud} />}
+                {member.website && <WebsiteBtn url={member.website} />}
+              </div>
+            </Fragment>
+          ))}
         </ul>
+        <IdLink id="about" />
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at nisl lorem. Cras aliquam risus tellus, in
           porta risus finibus a. Sed ex enim, gravida ut nisl eu, bibendum pretium est. Cras velit odio, lobortis eu
@@ -64,6 +155,7 @@ export default function Home() {
           bibendum tellus convallis sed. Nam euismod dictum enim nec mollis. Donec a tempus dui. Etiam eget interdum
           felis. Nulla orci mi, ullamcorper id porttitor sed, sollicitudin quis erat. Ut quis sodales orci.
         </p>
+        <IdLink id="project" />
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at nisl lorem. Cras aliquam risus tellus, in
           porta risus finibus a. Sed ex enim, gravida ut nisl eu, bibendum pretium est. Cras velit odio, lobortis eu
@@ -89,11 +181,15 @@ export default function Home() {
           bibendum tellus convallis sed. Nam euismod dictum enim nec mollis. Donec a tempus dui. Etiam eget interdum
           felis. Nulla orci mi, ullamcorper id porttitor sed, sollicitudin quis erat. Ut quis sodales orci.
         </p>
-        <IdLink id="test" />
-        <h3 className="text-end w-full">
-          <p>Best,</p>
+        <IdLink id="contact" />
+        <Link href="mailto:zero2inf.zip@gmail.com" className="flex items-center gap-1">
+          <IoMail />
+          <span className="underline">zero2inf.zip@gmail.com</span>
+        </Link>
+        <h4 className="text-end w-full">
+          <p className="-mb-2">Best,</p>
           <p>0-inf</p>
-        </h3>
+        </h4>
         <div className="bg-red-500 w-full p-6">block</div>
       </main>
       <footer className="flex flex-col justify-items-center w-full theme-inverse">
@@ -101,13 +197,15 @@ export default function Home() {
           <div>
             <h1>0-inf</h1>
             <div className="flex justify-between">
-              <p>We make something weird.</p>
-              <button onClick={toggleTheme}>theme btn</button>
+              <p>We make something weird</p>
+              <button onClick={toggleTheme}>
+                <div className="flex gap-1 items-center">{theme == 'dark' ? <CiLight /> : <CiDark />}Theme</div>
+              </button>
             </div>
           </div>
           <div className="flex w-full h-28 items-center">
             <p>
-              Made with ❤️️ by the <b>0-inf</b> team.
+              Made with ❤️️ by the <b>0-inf</b> team
             </p>
           </div>
         </div>
