@@ -2,16 +2,13 @@
 
 import { useTheme } from './theme';
 import IdLink from '@/components/IdLink';
-import EmojiBtn from '@/components/EmojiBtn';
-import Link from 'next/link';
-import { Fragment } from 'react';
+import EmojiBtn, { GithubBtn, YoutubeBtn, SoundcloudBtn, WebsiteBtn } from '@/components/EmojiBtn';
+import { Fragment, useEffect, useState } from 'react';
+import Nav from '@/components/Nav';
+import loadYAML from '@/lib/loadYAML';
 
-import { FaGithub } from 'react-icons/fa';
-import { FaYoutube } from 'react-icons/fa';
-import { FaGlobe } from 'react-icons/fa';
-import { FaSoundcloud } from 'react-icons/fa';
-import { CiLight } from 'react-icons/ci';
-import { CiDark } from 'react-icons/ci';
+// Emojis
+import { CiLight, CiDark } from 'react-icons/ci';
 import { IoMail } from 'react-icons/io5';
 
 type MemberInfoType = {
@@ -22,113 +19,42 @@ type MemberInfoType = {
   soundcloud?: string;
 };
 
-const members: MemberInfoType[] = [
-  {
-    name: 'Siwon Yun',
-    github: 'https://www.github.com/ysw421',
-    website: 'https://www.siwonsw.com',
-  },
-  {
-    name: 'Jinjae Park',
-    github: 'https://www.github.com/sleepncaffeine',
-  },
-  {
-    name: 'Chaehwan Seol',
-    github: 'https://www.github.com/seolmango',
-    website: 'https://seolmango.github.io',
-    youtube: 'https://www.youtube.com/channel/UCfnm0ljbPTutMH7DdMXg8iQ',
-  },
-  {
-    name: 'Mossygoldcoin',
-    github: 'https://www.github.com/Mossygoldcoin',
-    youtube: 'https://www.youtube.com/channel/UCRzFMeRA2cFAr22wZi0EuxA',
-  },
-  {
-    name: 'Hraverals',
-    github: 'https://www.github.com/Hraverals',
-    soundcloud: 'https://www.soundcloud.com/hraverals',
-  },
-  {
-    name: 'Seonghyun Kim',
-    github: 'https://www.github.com/FlyingChihwahwa',
-    youtube: 'https://www.youtube.com/@SiONdot-of',
-  },
-];
-
-function GithubBtn({ url }: { url: string }) {
-  return (
-    <EmojiBtn url={url} name="Github">
-      <FaGithub />
-    </EmojiBtn>
-  );
-}
-
-function YoutubeBtn({ url }: { url: string }) {
-  return (
-    <EmojiBtn url={url} name="Youtube">
-      <FaYoutube />
-    </EmojiBtn>
-  );
-}
-
-function SoundcloudBtn({ url }: { url: string }) {
-  return (
-    <EmojiBtn url={url} name="Soundcloud">
-      <FaSoundcloud />
-    </EmojiBtn>
-  );
-}
-
-function WebsiteBtn({ url }: { url: string }) {
-  return (
-    <EmojiBtn url={url} name="Website">
-      <FaGlobe />
-    </EmojiBtn>
-  );
-}
+type MembersDataType = {
+  members: MemberInfoType[];
+};
 
 export default function Home() {
-  const { theme, toggleTheme } = useTheme();
+  const [membersData, setMembersData] = useState<MembersDataType | null>(null);
+
+  useEffect(() => {
+    loadYAML<MembersDataType>('/data/members.yml', setMembersData);
+  }, []);
+
   return (
     <>
-      <nav className="flex flex-col justify-items-center w-full max-w-4xl mx-auto sticky top-0 z-50 p-4">
-        <div className="w-full theme-inverse py-2 px-6 rounded-xl flex justify-between items-center">
-          <h4>0-inf</h4>
-          <div className="flex gap-4">
-            <Link href="#member">Member</Link>
-            <Link href="#about">About</Link>
-            <Link href="#project">Project</Link>
-            <Link href="#contact">Contact</Link>
-          </div>
-        </div>
-      </nav>
-      <header className="flex flex-col justify-items-center items-center w-full py-40 gap-4">
-        <div>
-          <h1 className="text-8xl">Welcome to 0-inf</h1>
-          <p className="text-end">Since 2020</p>
-        </div>
-        <div className="flex gap-8">
-          <GithubBtn url="https://www.github.com/zerotoinf" />
-          <YoutubeBtn url="https://www.youtube.com/@zerotoinf" />
-        </div>
-      </header>
+      <Nav />
+      <Header />
       <main className="flex flex-col justify-items-center max-w-4xl mx-auto p-4">
         <h4>Dear reader,</h4>
         <p>안녕하때욥! 0-inf이예욥!</p>
         <IdLink id="member" />
-        <ul className="list-disc ml-8">
-          {members.map((member, index) => (
-            <Fragment key={`member-${index}`}>
-              <li>{member.name}</li>
-              <div className="flex gap-8">
-                {member.github && <GithubBtn url={member.github} />}
-                {member.youtube && <YoutubeBtn url={member.youtube} />}
-                {member.soundcloud && <SoundcloudBtn url={member.soundcloud} />}
-                {member.website && <WebsiteBtn url={member.website} />}
-              </div>
-            </Fragment>
-          ))}
-        </ul>
+        {membersData ? (
+          <ul className="list-disc ml-8">
+            {membersData.members.map((member, index) => (
+              <Fragment key={`member-${index}`}>
+                <li>{member.name}</li>
+                <div className="flex gap-8">
+                  {member.github && <GithubBtn url={member.github} />}
+                  {member.youtube && <YoutubeBtn url={member.youtube} />}
+                  {member.soundcloud && <SoundcloudBtn url={member.soundcloud} />}
+                  {member.website && <WebsiteBtn url={member.website} />}
+                </div>
+              </Fragment>
+            ))}
+          </ul>
+        ) : (
+          <div>Loading...</div>
+        )}
         <IdLink id="about" />
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce at nisl lorem. Cras aliquam risus tellus, in
@@ -182,34 +108,56 @@ export default function Home() {
           felis. Nulla orci mi, ullamcorper id porttitor sed, sollicitudin quis erat. Ut quis sodales orci.
         </p>
         <IdLink id="contact" />
-        <Link href="mailto:zero2inf.zip@gmail.com" className="flex items-center gap-1">
+        <EmojiBtn url="mailto:zero2inf.zip@gmail.com" name="zero2inf.zip@gmail.com" className="underline">
           <IoMail />
-          <span className="underline">zero2inf.zip@gmail.com</span>
-        </Link>
+        </EmojiBtn>
         <h4 className="text-end w-full">
           <p className="-mb-2">Best,</p>
           <p>0-inf</p>
         </h4>
         <div className="bg-red-500 w-full p-6">block</div>
       </main>
-      <footer className="flex flex-col justify-items-center w-full theme-inverse">
-        <div className="w-full max-w-4xl mx-auto gap-4 p-4">
-          <div>
-            <h1>0-inf</h1>
-            <div className="flex justify-between">
-              <p>We make something weird</p>
-              <button onClick={toggleTheme}>
-                <div className="flex gap-1 items-center">{theme == 'dark' ? <CiLight /> : <CiDark />}Theme</div>
-              </button>
-            </div>
-          </div>
-          <div className="flex w-full h-28 items-center">
-            <p>
-              Made with ❤️️ by the <b>0-inf</b> team
-            </p>
+      <Footer />
+    </>
+  );
+}
+
+function Header() {
+  return (
+    <header className="flex flex-col justify-items-center items-center w-full py-40 gap-4">
+      <div>
+        <h1 className="text-8xl">Welcome to 0-inf</h1>
+        <p className="text-end">Since 2020</p>
+      </div>
+      <div className="flex gap-8">
+        <GithubBtn url="https://www.github.com/zerotoinf" />
+        <YoutubeBtn url="https://www.youtube.com/@zerotoinf" />
+      </div>
+    </header>
+  );
+}
+
+function Footer() {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <footer className="flex flex-col justify-items-center w-full theme-inverse">
+      <div className="w-full max-w-4xl mx-auto gap-4 p-4">
+        <div>
+          <h1>0-inf</h1>
+          <div className="flex justify-between">
+            <p>We make something weird</p>
+            <button onClick={toggleTheme}>
+              <div className="flex gap-1 items-center">{theme == 'dark' ? <CiLight /> : <CiDark />}Theme</div>
+            </button>
           </div>
         </div>
-      </footer>
-    </>
+        <div className="flex w-full h-28 items-center">
+          <p>
+            Made with ❤️️ by the <b>0-inf</b> team
+          </p>
+        </div>
+      </div>
+    </footer>
   );
 }
