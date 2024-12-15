@@ -1,18 +1,19 @@
 menu:
   - name: Member
-    url: '#member'
+    url: '/#member'
 
   - name: About
-    url: '#about'
+    url: '/#about'
 
   - name: Project
-    url: '#project'
+    url: '/#project'
 
   - name: Contact
-    url: '#contact'
+    url: '/#contact'
 
 social:
-  - { name: github, url: 'https://www.github.com/zerotoinf' }
-  - { name: youtube, url: 'https://www.youtube.com/@zerotoinf' }
-  # - github: https://www.github.com/zerotoinf
-  # - youtube: https://www.youtube.com/@zerotoinf
+  - name: github
+    url: 'https://www.github.com/zerotoinf'
+
+  - name: youtube
+    url: 'https://www.youtube.com/@zerotoinf'
