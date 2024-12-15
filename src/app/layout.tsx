@@ -8,6 +8,7 @@ import '@/app/styles/fonts.scss';
 import '@/app/styles/colors.scss';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
+import { ToggleThemeRound } from '@/components/ToggleTheme';
 
 export const metadata: Metadata = {
   title: '0-inf',
@@ -26,6 +27,7 @@ export default function RootLayout({
           <Nav />
           <main className="flex flex-col justify-items-center max-w-4xl mx-auto px-4 pb-8">{children}</main>
           <Footer />
+          <ToggleThemeRound />
         </ThemeProvider>
       </body>
     </html>
