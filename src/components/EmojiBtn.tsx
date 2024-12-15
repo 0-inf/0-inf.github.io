@@ -1,20 +1,23 @@
 import { FaGithub, FaYoutube, FaGlobe, FaSoundcloud } from 'react-icons/fa';
+import { IoMail } from 'react-icons/io5';
 
 export default function EmojiBtn({
   url,
   name,
-  className,
+  className = '',
+  spanClassName = '',
   children,
 }: {
   url: string;
   name: string;
   className?: string;
+  spanClassName?: string;
   children: React.ReactNode;
 }) {
   return (
-    <a href={url} target="_blank" className={`flex items-center gap-1 ${className || ''}`}>
+    <a href={url} target="_blank" className={`flex items-center gap-1 ${className}`}>
       {children}
-      <span>{name}</span>
+      <span className={spanClassName}>{name}</span>
     </a>
   );
 }
@@ -51,4 +54,12 @@ function WebsiteBtn({ url }: { url: string }) {
   );
 }
 
-export { GithubBtn, YoutubeBtn, SoundcloudBtn, WebsiteBtn };
+function MailtoBtn({ url }: { url: string }) {
+  return (
+    <EmojiBtn url={`mailto:${url}`} name={url} spanClassName="underline text-[--link]">
+      <IoMail />
+    </EmojiBtn>
+  );
+}
+
+export { GithubBtn, YoutubeBtn, SoundcloudBtn, WebsiteBtn, MailtoBtn };

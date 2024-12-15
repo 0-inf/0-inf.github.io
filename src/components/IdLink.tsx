@@ -5,7 +5,7 @@ export default function IdLink({ id }: { id: string }) {
     <div>
       <div id={id} className="relative -top-16" />
       <h3 className="mt-2">
-        <Link href={`/#${id}`}>
+        <Link href={`#${id}`}>
           <span className="text-[--link]">§</span>
         </Link>
         {` ${id.charAt(0).toUpperCase()}${id.slice(1)}`}
