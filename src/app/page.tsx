@@ -105,7 +105,7 @@ function Member() {
   return (
     <>
       {membersData ? (
-        <ul className="list-disc ml-8">
+        <ul className="list-disc ml-8 columns-2">
           {membersData.members.map((member, index) => (
             <Fragment key={`member-${index}`}>
               <li>{member.name}</li>
