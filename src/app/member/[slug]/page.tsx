@@ -5,15 +5,11 @@ import { GithubBtn, SoundcloudBtn, WebsiteBtn, YoutubeBtn } from '@/components/E
 import { MemberInfoType, MemberDataType } from '@/type/MemberType';
 import { Metadata } from 'next';
 
-type Params = {
-  params: {
-    slug: string;
-  };
-};
+type tParams = Promise<{ slug: string }>;
 
-export default function Post({ params }: Params) {
-  const { slug } = params;
-  const name: string = slug.replace('_', ' ');
+export default async function Post(props: { params: tParams }) {
+  const { slug } = await props.params;
+  const name: string = await slug.replace('_', ' ');
 
   const memberData: MemberDataType | null = loadYAML<MemberDataType>('/data/member.yml');
   const member: MemberInfoType | undefined = memberData?.members.find((item) => item.name === name);
@@ -43,8 +39,9 @@ export default function Post({ params }: Params) {
   );
 }
 
-export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const name: string = params.slug.replace('_', ' ');
+export async function generateMetadata(props: { params: tParams }): Promise<Metadata> {
+  const { slug } = await props.params;
+  const name: string = await slug.replace('_', ' ');
 
   return {
     title: `Member: ${name}`,
