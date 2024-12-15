@@ -38,16 +38,6 @@ function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => voi
   return [storedValue, setValue];
 }
 
-function LayoutContent({ children }: { children: React.ReactNode }) {
-  const { theme } = useTheme();
-
-  useEffect(() => {
-    document.body.dataset.theme = theme;
-  }, [theme]);
-
-  return <body className="antialiased font-primary">{children}</body>;
-}
-
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useLocalStorage('theme', 'light');
 
@@ -56,17 +46,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (theme === 'light') {
       setTheme(defaultDark ? 'dark' : 'light');
     }
+    document.body.dataset.theme = theme;
   }, [theme, setTheme]);
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <LayoutContent>{children}</LayoutContent>
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
 }
 
 export function useTheme() {

@@ -1,12 +1,12 @@
 menu:
   - name: Member
-    url: \#member
+    url: #member
 
   - name: About
-    url: \#about
+    url: #about
 
   - name: Project
-    url: \#project
+    url: #project
 
   - name: Contact
-    url: \#contact
+    url: #contact

@@ -6,6 +6,8 @@ import '@/app/styles/components.scss';
 import '@/app/styles/utilities.scss';
 import '@/app/styles/fonts.scss';
 import '@/app/styles/colors.scss';
+import Nav from '@/components/Nav';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: '0-inf',
@@ -19,7 +21,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ThemeProvider>{children}</ThemeProvider>
+      <body className="antialiased font-primary">
+        <ThemeProvider>
+          <Nav />
+          {children}
+          <Footer />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
