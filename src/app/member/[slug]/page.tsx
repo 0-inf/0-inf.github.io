@@ -4,7 +4,13 @@ import Image from 'next/image';
 import { GithubBtn, SoundcloudBtn, WebsiteBtn, YoutubeBtn } from '@/components/EmojiBtn';
 import { MemberInfoType, MemberDataType } from '@/type/MemberType';
 
-export default async function Post({ params }: { params: { slug: string } }) {
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default async function Post({ params }: PageProps) {
   const { slug } = await params;
   const name: string = slug.replace('_', ' ');
 
