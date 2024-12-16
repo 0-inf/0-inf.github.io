@@ -2,10 +2,21 @@ import { Suspense } from 'react';
 import axios from 'axios';
 import { YouTubeVideoListClient } from './YouTubeVideoListClient';
 
-interface Video {
-  id: {
+interface VideoSnippet {
+  resourceId: {
     videoId: string;
   };
+  title: string;
+  thumbnails: {
+    medium: {
+      url: string;
+    };
+  };
+  publishedAt: string;
+}
+
+interface VideoDetails {
+  id: string;
   snippet: {
     title: string;
     thumbnails: {
@@ -13,6 +24,10 @@ interface Video {
         url: string;
       };
     };
+    publishedAt: string;
+  };
+  contentDetails: {
+    duration: string;
   };
 }
 
@@ -21,19 +36,35 @@ interface YouTubeVideoListServerProps {
 }
 
 export default async function YouTubeVideoListServer({ channelId }: YouTubeVideoListServerProps) {
-  let videos: Video[] = [];
+  const apiKey = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY;
+  const base = 'https://www.googleapis.com/youtube/v3';
+  let videos: VideoDetails[] = [];
 
   try {
-    const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
+    const uploadsPlaylistId = `UU${channelId.slice(2)}`;
+
+    const playlistResponse = await axios.get(`${base}/playlistItems`, {
       params: {
-        key: process.env.NEXT_PUBLIC_YOUTUBE_API_KEY,
-        channelId,
         part: 'snippet',
+        playlistId: uploadsPlaylistId,
         maxResults: 10,
-        order: 'date',
+        key: apiKey,
       },
     });
-    videos = response.data.items;
+
+    const videoIds = playlistResponse.data.items
+      .map((item: { snippet: VideoSnippet }) => item.snippet.resourceId.videoId)
+      .join(',');
+
+    const videoDetailsResponse = await axios.get(`${base}/videos`, {
+      params: {
+        part: 'snippet,contentDetails',
+        id: videoIds,
+        key: apiKey,
+      },
+    });
+
+    videos = videoDetailsResponse.data.items;
   } catch (error) {
     console.error('Error fetching YouTube videos:', error);
   }
