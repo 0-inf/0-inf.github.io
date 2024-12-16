@@ -11,7 +11,6 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void] {
   const [storedValue, setStoredValue] = useState<T>(() => {
-    // 서버 사이드에서는 초기값 반환
     if (typeof window === 'undefined') {
       return initialValue;
     }
@@ -58,7 +57,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (mounted && typeof window !== 'undefined') {
       const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-      // 초기 테마 설정 로직 개선
       if (!localStorage.getItem('theme')) {
         setTheme(defaultDark ? 'dark' : 'light');
       }

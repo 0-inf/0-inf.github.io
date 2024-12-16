@@ -1,28 +1,8 @@
 import loadYAML from '@/lib/loadYAML';
-import { Fragment } from 'react';
-import IdLink from './IdLink';
-import Member from './Member';
-import { MailtoBtn } from './EmojiBtn';
 import ColorLink from './ColorLink';
-
-// Component
-type Member = { name: string };
-type MailtoBtnType = { name: string; url: string };
-
-type ComponentType = {
-  name: string;
-  component: (Member | MailtoBtnType)[];
-};
-
-// Text
-type TextType = { name: string; text: string; indent?: boolean };
-type LinkType = { name: string; link: string; url: string; blank?: boolean };
-
-// Section
-type SectionType = { name: string; section: string };
-
-// Block
-type BlockType = { block: (ComponentType | TextType | LinkType | SectionType)[] };
+import IdLink from './IdLink';
+import { BlockType, ComponentType, LinkType, SectionType, TextType } from '@/type/ReadYAML';
+import { Fragment, lazy, Suspense } from 'react';
 
 export default function ReadYAML({ filePath }: { filePath: string }) {
   const contentsData: BlockType[] | undefined = loadYAML<{ contents: BlockType[] }>(filePath)?.contents;
@@ -30,41 +10,56 @@ export default function ReadYAML({ filePath }: { filePath: string }) {
   return (
     <div>
       {contentsData &&
-        contentsData?.map((block, index) => {
-          return (
-            <Fragment key={`block-${index}`}>
-              {block.block[0].name === 'text' && (
-                <span className={`${(block.block[0] as TextType)?.indent ? 'ml-4' : ''}`}>
-                  {(block.block[0] as TextType).text}
-                </span>
-              )}
-              {block.block[0].name === 'link' && (
-                <span>
-                  <ColorLink
-                    name={(block.block[0] as LinkType).link}
-                    url={(block.block[0] as LinkType).url}
-                    blank={(block.block[0] as LinkType).blank === undefined ? true : (block.block[0] as LinkType).blank}
-                  />
-                </span>
-              )}
-              {block.block[0].name === 'section' && <IdLink id={(block.block[0] as SectionType).section} />}
-              {block.block[0].name === 'component' && <ReadComponent component={block.block[0] as ComponentType} />}
-            </Fragment>
-          );
-        })}
+        contentsData.map((block, index) => (
+          <Fragment key={index}>
+            {block.block.map((item, i) => {
+              if (item.name === 'text') {
+                const textItem = item as TextType;
+                return (
+                  <span key={i} className={`${textItem?.indent ? 'ml-4' : ''}`}>
+                    {textItem.text}
+                  </span>
+                );
+              } else if (item.name === 'link') {
+                const linkItem = item as LinkType;
+                return (
+                  <span key={i}>
+                    <ColorLink
+                      name={linkItem.link}
+                      url={linkItem.url}
+                      blank={linkItem.blank === undefined ? true : linkItem.blank}
+                    />
+                  </span>
+                );
+              } else if (item.name === 'section') {
+                const sectionItem = item as SectionType;
+                return (
+                  <Fragment key={i}>
+                    <IdLink id={sectionItem.section} />
+                  </Fragment>
+                );
+              } else if (item.name === 'component') {
+                const componentItem = item as ComponentType;
+                return <DynamicComponentLoader key={i} component={componentItem} />;
+              }
+              return null;
+            })}
+          </Fragment>
+        ))}
     </div>
   );
 }
 
-function ReadComponent({ component }: { component: ComponentType }) {
-  const comp = component.component[0];
+function DynamicComponentLoader({ component }: { component: ComponentType }) {
+  const { component: componentInfo } = component;
 
-  switch (comp.name) {
-    case 'Member':
-      return <Member />;
+  const { name, ...componentProps } = componentInfo[0];
 
-    case 'MailtoBtn':
-      return <MailtoBtn url={(comp as MailtoBtnType).url} />;
-  }
-  return <></>;
+  const Component = lazy(() => import(`@/components/${name}`));
+
+  return (
+    <Suspense fallback={<div>Loading {name}...</div>}>
+      <Component {...componentProps} />
+    </Suspense>
+  );
 }
