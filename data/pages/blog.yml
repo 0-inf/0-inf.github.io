@@ -1,0 +1,13 @@
+blog:
+  - block:
+      - url: hi
+        title: hi
+        subtitle: hello
+        author: 'Siwon Yun'
+        date: Dec 16, 2024
+  - block:
+      - url: test
+        title: test
+        subtitle: 'i love you'
+        author: 'Siwon Yun'
+        date: Apr 21, 2006

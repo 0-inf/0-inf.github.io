@@ -41,10 +41,8 @@ export default async function YouTubeVideoListServer({ channelId }: YouTubeVideo
   let videos: VideoDetails[] = [];
 
   try {
-    // First, get the uploads playlist ID (convert channel ID)
     const uploadsPlaylistId = `UU${channelId.slice(2)}`;
 
-    // Fetch playlist items (recent videos)
     const playlistResponse = await axios.get(`${base}/playlistItems`, {
       params: {
         part: 'snippet',
@@ -54,12 +52,10 @@ export default async function YouTubeVideoListServer({ channelId }: YouTubeVideo
       },
     });
 
-    // Extract video IDs
     const videoIds = playlistResponse.data.items
       .map((item: { snippet: VideoSnippet }) => item.snippet.resourceId.videoId)
       .join(',');
 
-    // Fetch detailed video information
     const videoDetailsResponse = await axios.get(`${base}/videos`, {
       params: {
         part: 'snippet,contentDetails',
