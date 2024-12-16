@@ -16,14 +16,34 @@ export default function ReadYAML({ filePath }: { filePath: string }) {
               if (item.name === 'text') {
                 const textItem = item as TextType;
                 return (
-                  <span key={i} className={`${textItem?.indent ? 'ml-4' : ''}`}>
-                    {textItem.text}
+                  <Fragment key={i}>
+                    {textItem.text.split('\\n').map((text, index) => {
+                      return (
+                        <p key={index} className={`${textItem?.indent ? 'indent-4' : ''} ${textItem.className || ''}`}>
+                          {text}
+                        </p>
+                      );
+                    })}
+                  </Fragment>
+                );
+              } else if (item.name === 'span') {
+                const spanItem = item as TextType;
+                return (
+                  <span key={i} className={`${spanItem?.indent ? 'ml-4' : ''} ${spanItem.className || ''}`}>
+                    {spanItem.text}
                   </span>
+                );
+              } else if (item.name === 'p') {
+                const pItem = item as TextType;
+                return (
+                  <p key={i} className={`${pItem?.indent ? 'indent-4' : ''} ${pItem.className || ''}`}>
+                    {pItem.text}
+                  </p>
                 );
               } else if (item.name === 'link') {
                 const linkItem = item as LinkType;
                 return (
-                  <span key={i}>
+                  <span key={i} className={linkItem.className || ''}>
                     <ColorLink
                       name={linkItem.link}
                       url={linkItem.url}
@@ -33,7 +53,9 @@ export default function ReadYAML({ filePath }: { filePath: string }) {
                 );
               } else if (item.name === 'break') {
                 const breakItem = item as BreakType;
-                return <div key={i} className="w-full" style={{ height: breakItem.h }} />;
+                return (
+                  <div key={i} className={`w-full ${breakItem.className || ''}`} style={{ height: breakItem.h }} />
+                );
               } else if (item.name === 'section') {
                 const sectionItem = item as SectionType;
                 return (

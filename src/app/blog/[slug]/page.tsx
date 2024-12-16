@@ -16,7 +16,7 @@ export default async function Post(props: { params: tParams }) {
   return (
     <>
       <div className="border-y-2 p-2 border-dashed mb-8 border-[--foreground]">
-        <h1>{blog?.title}</h1>
+        <h1 className="mt-1">{blog?.title}</h1>
         <p>{blog?.subtitle}</p>
         <p className="text-sm">
           <ColorLink url={`/member/${blog?.author.replace(/ /g, '_')}`} name={`@${blog?.author}`} />
