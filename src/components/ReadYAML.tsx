@@ -1,7 +1,7 @@
 import loadYAML from '@/lib/loadYAML';
 import ColorLink from './ColorLink';
 import IdLink from './IdLink';
-import { BlockType, ComponentType, LinkType, SectionType, TextType } from '@/type/ReadYAML';
+import { BlockType, BreakType, ComponentType, LinkType, SectionType, TextType } from '@/type/ReadYAML';
 import { Fragment, lazy, Suspense } from 'react';
 
 export default function ReadYAML({ filePath }: { filePath: string }) {
@@ -31,6 +31,9 @@ export default function ReadYAML({ filePath }: { filePath: string }) {
                     />
                   </span>
                 );
+              } else if (item.name === 'break') {
+                const breakItem = item as BreakType;
+                return <div key={i} className="w-full" style={{ height: breakItem.h }} />;
               } else if (item.name === 'section') {
                 const sectionItem = item as SectionType;
                 return (
