@@ -19,7 +19,13 @@ export default async function Post(props: { params: tParams }) {
       {member ? (
         <div className="flex gap-8">
           <div className="w-[300px]">
-            <Image src={`/images/logo/${slug}.png`} width={300} height={300} alt={`${name} image`} />
+            <Image
+              src={`/images/logo/${slug}.jpeg`}
+              width={300}
+              height={300}
+              alt={`${name} image`}
+              className="rounded-xl"
+            />
           </div>
           <div className="w-full">
             <h1>{name}</h1>

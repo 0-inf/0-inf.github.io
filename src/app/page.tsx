@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <h4>Dear reader,</h4>
+      <h4 className="mb-2">Dear reader,</h4>
       <ReadYAML filePath="/data/pages/index.yml" />
       <Best />
       <div className="w-full h-8" />
@@ -39,7 +39,6 @@ function Header() {
   return (
     <header className="flex flex-col justify-items-center items-center w-full py-40 gap-4">
       <div>
-        {/* <h1 className="text-8xl">Welcome to 0-inf</h1> */}
         <h1 className="w-full text-4xl md:text-7xl lg:text-8xl">Welcome to 0-inf </h1>
         <p className="text-end">Since 2020</p>
       </div>
