@@ -8,10 +8,8 @@ export default function Home() {
   return (
     <>
       <Header />
-      <div className="p-4">
-        <h1 className="text-2xl mb-4">YouTube Video List</h1>
-        <YouTubeVideoList channelId="UCfrfmPSPXdQ2koJJQLxCUOQ" /> {/* Replace with your channel ID */}
-      </div>
+      <h1 className="text-2xl mb-4">YouTube Video List</h1>
+      <YouTubeVideoList channelId="UCfrfmPSPXdQ2koJJQLxCUOQ" />
 
       <h4 className="mb-2">Dear reader,</h4>
       <ReadYAML filePath="/data/pages/index.yml" />
