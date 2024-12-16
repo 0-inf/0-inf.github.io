@@ -13,7 +13,7 @@ export default function Blog() {
           const block = block_.block[0];
           return (
             <li key={i} className="border-t-2 p-2 border-dashed border-[--foreground]">
-              <h2>
+              <h2 className="mt-1">
                 <ColorLink url={`/blog/${block.url}`} name={block.title} />
               </h2>
               <p>{block.subtitle}</p>
