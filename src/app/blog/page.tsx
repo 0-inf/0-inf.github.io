@@ -12,7 +12,7 @@ export default function Blog() {
         {blogData?.map((block_, i) => {
           const block = block_.block[0];
           return (
-            <li key={i} className="border-t-2 p-2 border-dashed">
+            <li key={i} className="border-t-2 p-2 border-dashed border-[--foreground]">
               <h2>
                 <ColorLink url={`/blog/${block.url}`} name={block.title} />
               </h2>
