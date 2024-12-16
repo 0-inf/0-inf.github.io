@@ -1,0 +1,154 @@
+contents:
+  - block:
+      - name: section
+        section: '오늘은 무엇을 했는가?'
+  - block:
+      - name: text
+        text: '9월 6일은 chess모듈 이름정하고, 기획서 작성하다 너무 졸려서 잤습니다. 일어나보니 너무 늦어있어 작업을 별로하지 못했다는 안타까운 사연이...'
+  - block:
+      - name: break
+        h: 0rem
+  - block:
+      - name: text
+        text: '...9월 6일은 이끼 낀 금화가 꿈을 찾는 변화의 첫걸음을 내딛는 날이니, 봐줍시다...!'
+  - block:
+      - name: break
+        h: 1rem
+  - block:
+      - name: text
+        text: '9월 7일은 기획서 마저 어느정도 작성하고, 본격적인 코드작업에 들어갔습니다. 자세한 사항은 아래에...!'
+  - block:
+      - name: break
+        h: 5rem
+  - block:
+      - name: section
+        section: '시작하기전, 이름의 유래'
+  - block:
+      - name: text
+        text: '원래 이름은 그냥 chess 모듈이었지만, 더 많은 변형이 가능하고, 더 자유로운 제작이 가능한 체스모듈을 만들고 싶었기에 "variantChess" 라는 이름으로 변경하였습니다. (variant - 변형, 변종)'
+  - block:
+      - name: break
+        h: 5rem
+  - block:
+      - name: section
+        section: '개발일지'
+  - block:
+      - name: text
+        text: '제가 생각한 개발의 순서는'
+  - block:
+      - name: break
+        h: 0rem
+  - block:
+      - name: text
+        text: '1. 기존에 만든 코드 정리 (혼란스러운 용어정리, 꼬인 코드들 분해)'
+  - block:
+      - name: break
+        h: 0rem
+  - block:
+      - name: text
+        text: '2. 자율성을 더욱 더 추구하는 자료구조를 만들기'
+  - block:
+      - name: break
+        h: 0rem
+  - block:
+      - name: text
+        text: '3. 본격적인 코드작업'
+  - block:
+      - name: break
+        h: 0rem
+  - block:
+      - name: text
+        text: '입니다. 물론 전에 순서를 다해야만 다음 순서로 가는것은 아니고, 어느정도는 골고루 할 예정입니다.'
+  - block:
+      - name: break
+        h: 3rem
+  - block:
+      - name: text
+        text: '1. 기존에 만든 코드 정리'
+  - block:
+      - name: break
+        h: 0rem
+  - block:
+      - name: text
+        text: '헷갈렸던 변수, 리스트 등의 이름을 수정했습니다.'
+  - block:
+      - name: break
+        h: 3rem
+  - block:
+      - name: text
+        text: '2. 자율성을 더욱 더 추구하는 자료구조를 만들기'
+  - block:
+      - name: break
+        h: 0rem
+  - block:
+      - name: text
+        text: '원래 코드는 모듈안에서 개발자가 직접해야했기에, 지금 만들생각의 모듈과는 거리가 멀다고 판단해서 새로운것들을 꽤나 추가했습니다.'
+  - block:
+      - name: break
+        h: 0rem
+  - block:
+      - name: text
+        text: 'image 변수: 사용할 기물등의 이미지를 지정합니다.'
+  - block:
+      - name: break
+        h: 0rem
+  - block:
+      - name: text
+        text: 'font 변수: 사용할 폰트를 지정합니다.'
+  - block:
+      - name: break
+        h: 0rem
+  - block:
+      - name: text
+        text: 'setMove 딕셔너리: 추가할 기물들과 움직임을 지정합니다. (움직임 지정의 경우 아직 구상단계에만 있습니다.'
+  - block:
+      - name: break
+        h: 0rem
+  - block:
+      - name: text
+        text: 'short 딕셔너리: 사용할 용어들의 줄임말을 지정할 수 있습니다. 기보표기법 등등에 사용됩니다. (예: "N": "knight")'
+  - block:
+      - name: break
+        h: 3rem
+  - block:
+      - name: text
+        text: '3. 본격적인 코드작업'
+  - block:
+      - name: break
+        h: 0rem
+  - block:
+      - name: text
+        text: 'image, font, 움직임을 제외하고 명칭만 지정한 setMove, short 를 지정했습니다. chess 클래스의 게임생성 메소드를 만들었고, 현재 진행하고 있는 게임의 이미지생성 개발을 하고있습니다. 게임의 이미지생성은 0(백 시점), 90, 180(흑 시점), 270에서 볼 수 있는 기능을 만들고 있습니다.'
+  - block:
+      - name: break
+        h: 3rem
+  - block:
+      - name: text
+        text: '적은 기획서'
+  - block:
+      - name: break
+        h: 0rem
+  - block:
+      - name: text
+        text: '========== variantChess =========='
+  - block:
+      - name: break
+        h: 3rem
+  - block:
+      - name: text
+        text: 'image 딕셔너리 / 실행파일에서 사용할 체스사진 선택가능 '
+  - block:
+      - name: break
+        h: 0rem
+  - block:
+      - name: text
+        text: '형식: {"기물이름+색깔 또는 팀이름": "사진의 경로"} '
+  - block:
+      - name: break
+        h: 0rem
+  - block:
+      - name: text
+        text: '예: {"pawnW": "./chessImage/pawnWhite.png")} '
+  - block:
+      - name: break
+        h: 3rem
