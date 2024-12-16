@@ -11,6 +11,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void] {
   const [storedValue, setStoredValue] = useState<T>(() => {
+    // 서버 사이드에서는 초기값 반환
     if (typeof window === 'undefined') {
       return initialValue;
     }
@@ -23,10 +24,17 @@ function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => voi
     }
   });
 
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const setValue = (value: T) => {
     try {
       const valueToStore = value instanceof Function ? value(storedValue) : value;
       setStoredValue(valueToStore);
+
       if (typeof window !== 'undefined') {
         window.localStorage.setItem(key, JSON.stringify(valueToStore));
       }
@@ -35,23 +43,35 @@ function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => voi
     }
   };
 
-  return [storedValue, setValue];
+  return [isClient ? storedValue : initialValue, setValue];
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useLocalStorage('theme', 'light');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (theme === 'light') {
-      setTheme(defaultDark ? 'dark' : 'light');
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted && typeof window !== 'undefined') {
+      const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      // 초기 테마 설정 로직 개선
+      if (!localStorage.getItem('theme')) {
+        setTheme(defaultDark ? 'dark' : 'light');
+      }
+
+      document.body.dataset.theme = theme;
     }
-    document.body.dataset.theme = theme;
-  }, [theme, setTheme]);
+  }, [theme, mounted]);
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
+
+  if (!mounted) return null;
 
   return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
 }

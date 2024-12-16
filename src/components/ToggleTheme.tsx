@@ -1,26 +1,50 @@
 'use client';
-import { useTheme } from '@/app/theme';
+
+import { useTheme } from 'next-themes';
 import { CiDark, CiLight } from 'react-icons/ci';
+import { useState, useEffect } from 'react';
+
+function ThemeIcon() {
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <CiLight />;
+  }
+
+  if (theme === 'dark') {
+    return <CiDark />;
+  } else {
+    return <CiLight />;
+  }
+}
 
 export function ToggleThemeRound() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
   return (
     <button
-      onClick={toggleTheme}
+      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
       className="flex justify-center items-center rounded-full bg-white shadow-round text-[--color-ui-font] w-[30px] h-[30px] fixed right-4 bottom-4"
     >
-      {theme === 'dark' ? <CiLight /> : <CiDark />}
+      <ThemeIcon />
     </button>
   );
 }
 
 export function ToggleThemeEmojiBtn() {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
   return (
-    <button onClick={toggleTheme}>
-      <div className="flex gap-1 items-center">{theme === 'dark' ? <CiLight /> : <CiDark />}Theme</div>
+    <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+      <div className="flex gap-1 items-center">
+        <ThemeIcon />
+        Theme
+      </div>
     </button>
   );
 }
