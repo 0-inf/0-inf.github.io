@@ -1,5 +1,6 @@
-import { ThemeProvider } from './theme';
+import { ThemeProvider } from 'next-themes';
 import { Metadata } from 'next';
+import { ToggleThemeRound } from '@/components/ToggleTheme';
 
 import '@/app/styles/base.scss';
 import '@/app/styles/components.scss';
@@ -8,7 +9,6 @@ import '@/app/styles/fonts.scss';
 import '@/app/styles/colors.scss';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
-import { ToggleThemeRound } from '@/components/ToggleTheme';
 
 export const metadata: Metadata = {
   title: '0-inf',
@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="antialiased font-primary">
         <ThemeProvider>
           <Nav />

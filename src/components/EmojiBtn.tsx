@@ -56,7 +56,7 @@ function WebsiteBtn({ url }: { url: string }) {
 
 function MailtoBtn({ url }: { url: string }) {
   return (
-    <EmojiBtn url={`mailto:${url}`} name={url} spanClassName="underline text-[--link]">
+    <EmojiBtn url={`mailto:${url}`} name={url} className="w-fit" spanClassName="underline text-[--link]">
       <IoMail />
     </EmojiBtn>
   );
