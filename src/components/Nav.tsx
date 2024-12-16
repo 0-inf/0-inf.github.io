@@ -14,7 +14,7 @@ export default function Nav() {
   const menusData = loadYAML<MenuDataType>('/data/setting.yml');
 
   return (
-    <nav className="flex flex-col justify-items-center w-full max-w-4xl mx-auto sticky top-0 z-50 p-4">
+    <nav className="flex flex-col justify-items-center w-full max-w-4xl mx-auto sticky top-0 z-50 px-8 py-4">
       <div className="w-full theme-inverse py-2 px-6 rounded-xl flex justify-between items-center">
         <h4>
           <Link href="/">0-inf</Link>
