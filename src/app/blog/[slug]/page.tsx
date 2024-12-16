@@ -36,8 +36,8 @@ export async function generateMetadata(props: { params: tParams }): Promise<Meta
 
   return blog
     ? {
-        title: 'hello',
-        description: `!!!!!!!!!!!!!!!!!!!subtitle!!`,
+        title: blog.title,
+        description: blog.subtitle,
       }
     : { title: '404', description: 'Not Founded Error' };
 }
