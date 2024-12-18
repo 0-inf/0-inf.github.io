@@ -15,11 +15,13 @@ export default function Nav() {
 
   return (
     <nav className="flex flex-col justify-items-center w-full max-w-4xl mx-auto sticky top-0 z-50 px-8 py-4">
-      <div className="w-full theme-inverse py-2 px-6 rounded-xl flex justify-between items-center">
+      <div className="w-full theme-inverse py-2 px-6 rounded-xl flex justify-between items-center gap-6">
         <h4>
-          <Link href="/">0-inf</Link>
+          <Link href="/" style={{ display: 'ruby' }}>
+            0-inf
+          </Link>
         </h4>
-        <div className="flex gap-4">
+        <div className="flex gap-x-2 flex-wrap justify-end md:gap-x-4">
           {menusData ? (
             menusData.menu.map((menu, index) => (
               <Link href={menu.url} key={`menu-${index}`}>

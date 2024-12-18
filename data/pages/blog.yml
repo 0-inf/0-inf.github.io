@@ -1,11 +1,5 @@
 blog:
   - block:
-      - url: hi
-        title: hi
-        subtitle: hello
-        author: 'Siwon Yun'
-        date: Dec 16, 2024
-  - block:
       - url: test
         title: test
         subtitle: 'i love you'
@@ -16,3 +10,9 @@ blog:
         title: variantChess 모듈 9월 6~7일 개발일지
         author: 'Mossygoldcoin'
         date: Sep 7, 2021
+  - block:
+      - url: hi
+        title: hi
+        subtitle: hello
+        author: 'Siwon Yun'
+        date: Dec 16, 2024
