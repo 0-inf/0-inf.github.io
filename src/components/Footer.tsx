@@ -3,7 +3,7 @@ import { ToggleThemeEmojiBtn } from './ToggleTheme';
 export default function Footer() {
   return (
     <footer className="flex flex-col justify-items-center w-full theme-inverse">
-      <div className="w-full max-w-4xl mx-auto gap-4 p-8">
+      <div className="w-full max-w-4xl mx-auto gap-4 px-4 py-8">
         <div>
           <h1>0-inf</h1>
           <div className="flex justify-between">
