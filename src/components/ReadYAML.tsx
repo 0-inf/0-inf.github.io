@@ -3,6 +3,7 @@ import ColorLink from './ColorLink';
 import IdLink from './IdLink';
 import { BlockType, BreakType, ComponentType, LinkType, SectionType, TextType } from '@/type/ReadYAML';
 import { Fragment, lazy, Suspense } from 'react';
+import clsx from 'clsx';
 
 export default function ReadYAML({ filePath }: { filePath: string }) {
   const contentsData: BlockType[] | undefined = loadYAML<{ contents: BlockType[] }>(filePath)?.contents;
@@ -19,7 +20,10 @@ export default function ReadYAML({ filePath }: { filePath: string }) {
                   <Fragment key={i}>
                     {textItem.text.split('\\n').map((text, index) => {
                       return (
-                        <p key={index} className={`${textItem?.indent ? 'indent-4' : ''} ${textItem.className || ''}`}>
+                        <p
+                          key={index}
+                          className={clsx(`${textItem?.indent ? 'indent-4' : ''}`, `${textItem.className || ''}`)}
+                        >
                           {text}
                         </p>
                       );
