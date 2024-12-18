@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className="antialiased font-primary">
         <ThemeProvider>
           <Nav />
-          <main className="flex flex-col justify-items-center max-w-4xl mx-auto px-8 pb-8">{children}</main>
+          <main className="flex flex-col justify-items-center max-w-4xl mx-auto px-4 pb-8">{children}</main>
           <Footer />
           <ToggleThemeRound />
         </ThemeProvider>
